@@ -1,21 +1,21 @@
-const ctx = document.getElementById('test');
+const ctx = document.getElementById("main_graph");
 
-new Chart(ctx, {
-	type: 'line',
+main_chart = new Chart(ctx, {
+	type: "line",
 	borderColor: "#FFFFFF",
 
 	data: {
-		labels: [1, 2, 3, 4, 5, 6],
+		labels: [],
 		datasets: [{
 			backgroundColor: "rgb(255, 99, 132)",
 			borderColor: "rgb(255, 99, 132)",
-			label: '# of Votes',
+			label: "Received Value",
 			borderWidth: 3,
-			data: [12, 19, 3, 5, 2, 3],
+			data: [],
 		}]
 	},
 	options: {
-		devicePixelRatio: 2,
+		devicePixelRatio: 5,
 		plugins: {
 			legend: {
 				display: false
@@ -37,17 +37,21 @@ new Chart(ctx, {
 					display: true,
 					text: "Received Value",
 					font: {
-						color: "red",
 						size: 16,
 					},
 				},
 			},
 			x: {
+				type: 'time',
+				time: {
+					unit: 'second'
+				},
 				grid: {
 					color: "rgba(255, 255, 255, 0.3)"
 				},
 				ticks: {
 					color: "#FFFFFF",
+					maxTicksLimit: 6,
 				},
 				title: {
 					color: "#FFFFFF",
@@ -61,3 +65,15 @@ new Chart(ctx, {
 		}
 	}
 });
+
+function addData(chart, label, newData) {
+	chart.data.labels.push(label);
+	chart.data.datasets.forEach((dataset) => {
+		dataset.data.push(newData);
+	});
+	chart.update();
+}
+
+setInterval(() => {
+	addData(main_chart, Date.now(), Math.random() * 10);
+}, 2000);
