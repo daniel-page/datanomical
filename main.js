@@ -44,3 +44,15 @@ app.on('window-all-closed', () => {
 
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and require them here.
+
+const express = require('express');
+const xp = express();
+const port = 3000;
+
+xp.get('/', (req, res) => {
+	res.send('Hello World!');
+})
+
+xp.listen(port, () => {
+	console.log(`Example app listening on port ${port}`);
+})
