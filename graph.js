@@ -10,7 +10,7 @@ main_chart = new Chart(ctx, {
 			backgroundColor: "rgb(255, 99, 132)",
 			borderColor: "rgb(255, 99, 132)",
 			label: "Received Value",
-			borderWidth: 3,
+			borderWidth: 1,
 			data: [],
 		}]
 	},
@@ -42,10 +42,10 @@ main_chart = new Chart(ctx, {
 				},
 			},
 			x: {
-				type: 'time',
-				time: {
-					unit: 'second'
-				},
+				type: 'timeseries',
+				// time: {
+				// 	unit: 'second'
+				// },
 				grid: {
 					color: "rgba(255, 255, 255, 0.3)"
 				},

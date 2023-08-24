@@ -5,7 +5,7 @@ Development is currently in progress.
 
 ## Dependencies  
 - Node.js v20.5.1  
-- Chart.js v4.3.3  
+- Chart.js v4.4.0  
 - Yarn v1.22.18  
 - chartjs-adapter-date-fns v3.0.0
 
