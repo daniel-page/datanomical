@@ -3,6 +3,8 @@ A datalogging application that collects and visualises data sent via REST API or
 
 Development is currently in progress.  
 
+<img width="600" src="demo.gif" alt="Application Demo">  
+
 ## Dependencies  
 - Node.js v20.5.1  
 - Chart.js v4.4.0  
