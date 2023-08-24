@@ -75,5 +75,14 @@ function addData(chart, label, newData) {
 }
 
 setInterval(() => {
-	addData(main_chart, Date.now(), Math.random() * 10);
+	fetch('http://localhost:3000/data_stream_int')
+		.then(response => response.json())
+		.then(data => {
+			// Handle data
+			// console.log(JSON.stringify(data));
+			addData(main_chart, data["time"], data["data"]);
+		})
+		.catch(error => {
+			// Handle error
+		});
 }, 2000);

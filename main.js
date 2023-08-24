@@ -46,13 +46,47 @@ app.on('window-all-closed', () => {
 // code. You can also put them in separate files and require them here.
 
 const express = require('express');
+const bodyParser = require('body-parser')
+
 const xp = express();
 const port = 3000;
 
-xp.get('/', (req, res) => {
-	res.send('Hello World!');
+xp.use(bodyParser.json())
+xp.use(bodyParser.urlencoded({ extended: false }))
+
+xp.get('/data_stream_int', (req, res) => {
+	res.json({ time: Date.now(), data: Math.random() * 10 });
+})
+
+// xp.get('/', (req, res) => {
+// 	res.send('Hello World!');
+// })
+
+xp.post('/data_stream_ext', (req, res) => {
+	let data = req.body;
+	console.log(JSON.stringify(data));
+	res.send('Data Received: ' + JSON.stringify(data));
 })
 
 xp.listen(port, () => {
-	console.log(`Example app listening on port ${port}`);
+	console.log(`Listening on port ${port}`);
 })
+
+// const fs = require('fs');
+
+// // Create a data directory if it does not already exist
+
+// var dir = './data';
+
+// if (!fs.existsSync(dir)) {
+// 	fs.mkdirSync(dir);
+// }
+
+// const content = 'Some,content!';
+
+// fs.writeFile('data/test.csv', content, err => {
+// 	if (err) {
+// 		console.error(err);
+// 	}
+// 	// file written successfully
+// });

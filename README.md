@@ -19,3 +19,4 @@ Development is currently in progress.
 - https://www.chartjs.org/docs/latest/developers/updates.html  
 - https://stackoverflow.com/questions/39091964/remove-menubar-from-electron-app  
 - https://github.com/chartjs/chartjs-adapter-date-fns  
+- https://chrome.google.com/webstore/detail/boomerang-soap-rest-clien/eipdnjedkpcnlmmdfdkgfpljanehloah/related  
