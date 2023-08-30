@@ -3,17 +3,6 @@ const ctx = document.getElementById("main_graph");
 main_chart = new Chart(ctx, {
 	type: "line",
 	borderColor: "#FFFFFF",
-
-	data: {
-		labels: [],
-		datasets: [{
-			backgroundColor: "rgb(255, 99, 132)",
-			borderColor: "rgb(255, 99, 132)",
-			label: "Received Value",
-			borderWidth: 1,
-			data: [],
-		}]
-	},
 	options: {
 		devicePixelRatio: 5,
 		plugins: {
@@ -35,7 +24,7 @@ main_chart = new Chart(ctx, {
 				title: {
 					color: "#FFFFFF",
 					display: true,
-					text: "Received Value",
+					text: "Data",
 					font: {
 						size: 16,
 					},
@@ -66,21 +55,36 @@ main_chart = new Chart(ctx, {
 	}
 });
 
-function addData(chart, label, newData) {
-	chart.data.labels.push(label);
-	chart.data.datasets.forEach((dataset) => {
-		dataset.data.push(newData);
-	});
+function addData(chart, name, time, newData) {
+
+	const index = chart.data.datasets.findIndex((dataset) => dataset.label === name);
+	console.log(index);
+
+	if (index >= 0) {
+		chart.data.datasets[index].data.push({ x: time, y: newData });
+		console.log("Data added!");
+	} else {
+		console.log("Not found. New dataset created.");
+		var newDataset = {
+			backgroundColor: "rgb(255, 99, 132)",
+			borderColor: "rgb(255, 99, 132)",
+			label: name,
+			borderWidth: 1,
+			data: [{ x: time, y: newData }],
+		}
+		chart.data.datasets.push(newDataset);
+	}
+
 	chart.update();
 }
 
 setInterval(() => {
-	fetch('http://localhost:3000/data_stream_int')
+	fetch('http://localhost:3000/data_collect')
 		.then(response => response.json())
 		.then(data => {
 			// Handle data
 			console.log("Data received int: " + JSON.stringify(data));
-			addData(main_chart, data["time"], data["data"]);
+			addData(main_chart, data["name"], data["time"], data["data"]);
 		})
 		.catch(error => {
 			// Handle error

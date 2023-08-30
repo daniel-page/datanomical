@@ -57,20 +57,20 @@ xp.use(bodyParser.urlencoded({ extended: false }))
 
 const queue = new Queue();
 
-xp.post('/data_stream_ext', (req, res) => {
+xp.post('/data_ingest', (req, res) => {
 	let data = req.body;
 	console.log("Data received ext: " + JSON.stringify(data));
 	res.sendStatus(200);
 	queue.enqueue(data);
 })
 
-xp.get('/data_stream_int', (req, res) => {
+xp.get('/data_collect', (req, res) => {
 	if (Object.keys(queue.items).length > 0) {
 		var data = queue.dequeue();
 		console.log("Data sent int: " + JSON.stringify(data));
 		res.json(data);
 	} else {
-		res.sendStatus(200);
+		res.sendStatus(204);
 	}
 })
 
@@ -81,7 +81,7 @@ xp.get('/data_stream_int', (req, res) => {
 
 
 xp.listen(port, () => {
-	console.log(`Listening on port ${port}`);
+	console.log(`Listening on port ${port}\n`);
 })
 
 // const fs = require('fs');

@@ -24,12 +24,17 @@ yarn build
 ``` 
 
 ### POST
-http://localhost:3000/data_stream_ext  
+http://localhost:3000/data_ingest  
 
 #### Example JSON  
 ``` 
-{"time":1,"data":5}  
+{
+	"name": "stream1",
+	"time": 1693437360633,
+	"data": 3
+}  
 ``` 
+Note this uses unix time.  
 
 ## Resources  
 - https://www.electronjs.org/docs/latest/tutorial/quick-start  
@@ -43,3 +48,5 @@ http://localhost:3000/data_stream_ext
 - https://chrome.google.com/webstore/detail/boomerang-soap-rest-clien/eipdnjedkpcnlmmdfdkgfpljanehloah/related  
 - https://www.geeksforgeeks.org/implementation-queue-javascript/  
 - https://stackoverflow.com/questions/34275287/how-to-send-just-a-200-response-in-express-js  
+- https://stackoverflow.com/questions/39475891/add-dataset-bar-chart-chart-js  
+- https://stackoverflow.com/questions/48143233/how-to-plot-multiple-time-series-in-chartjs-where-each-time-series-has-different  
