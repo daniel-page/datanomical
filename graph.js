@@ -79,10 +79,10 @@ setInterval(() => {
 		.then(response => response.json())
 		.then(data => {
 			// Handle data
-			// console.log(JSON.stringify(data));
+			console.log("Data received int: " + JSON.stringify(data));
 			addData(main_chart, data["time"], data["data"]);
 		})
 		.catch(error => {
 			// Handle error
 		});
-}, 2000);
+}, 500);

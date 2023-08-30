@@ -9,8 +9,27 @@ Development is currently in progress.
 - Node.js v20.5.1  
 - Chart.js v4.4.0  
 - Yarn v1.22.18  
-- chartjs-adapter-date-fns v3.0.0
+- chartjs-adapter-date-fns v3.0.0  
 
+## Usage  
+
+### Start application
+``` 
+yarn start  
+``` 
+
+### Build application
+``` 
+yarn build  
+``` 
+
+### POST
+http://localhost:3000/data_stream_ext  
+
+#### Example JSON  
+``` 
+{"time":1,"data":5}  
+``` 
 
 ## Resources  
 - https://www.electronjs.org/docs/latest/tutorial/quick-start  
@@ -22,3 +41,5 @@ Development is currently in progress.
 - https://stackoverflow.com/questions/39091964/remove-menubar-from-electron-app  
 - https://github.com/chartjs/chartjs-adapter-date-fns  
 - https://chrome.google.com/webstore/detail/boomerang-soap-rest-clien/eipdnjedkpcnlmmdfdkgfpljanehloah/related  
+- https://www.geeksforgeeks.org/implementation-queue-javascript/  
+- https://stackoverflow.com/questions/34275287/how-to-send-just-a-200-response-in-express-js  

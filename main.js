@@ -3,6 +3,7 @@
 // Modules to control application life and create native browser window
 const { app, BrowserWindow } = require('electron')
 const path = require('path')
+const { Queue } = require('./queue.js')
 
 const createWindow = () => {
 	// Create the browser window.
@@ -54,19 +55,30 @@ const port = 3000;
 xp.use(bodyParser.json())
 xp.use(bodyParser.urlencoded({ extended: false }))
 
+const queue = new Queue();
+
+xp.post('/data_stream_ext', (req, res) => {
+	let data = req.body;
+	console.log("Data received ext: " + JSON.stringify(data));
+	res.sendStatus(200);
+	queue.enqueue(data);
+})
+
 xp.get('/data_stream_int', (req, res) => {
-	res.json({ time: Date.now(), data: Math.random() * 10 });
+	if (Object.keys(queue.items).length > 0) {
+		var data = queue.dequeue();
+		console.log("Data sent int: " + JSON.stringify(data));
+		res.json(data);
+	} else {
+		res.sendStatus(200);
+	}
 })
 
 // xp.get('/', (req, res) => {
 // 	res.send('Hello World!');
 // })
 
-xp.post('/data_stream_ext', (req, res) => {
-	let data = req.body;
-	console.log(JSON.stringify(data));
-	res.send('Data Received: ' + JSON.stringify(data));
-})
+
 
 xp.listen(port, () => {
 	console.log(`Listening on port ${port}`);
