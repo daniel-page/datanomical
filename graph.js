@@ -55,13 +55,13 @@ main_chart = new Chart(ctx, {
 	}
 });
 
-function addData(chart, name, time, newData) {
+function addData(chart, name, time, value) {
 
 	const index = chart.data.datasets.findIndex((dataset) => dataset.label === name);
 	console.log(index);
 
 	if (index >= 0) {
-		chart.data.datasets[index].data.push({ x: time, y: newData });
+		chart.data.datasets[index].data.push({ x: time, y: value });
 		console.log("Data added!");
 	} else {
 		console.log("Not found. New dataset created.");
@@ -70,7 +70,7 @@ function addData(chart, name, time, newData) {
 			borderColor: "rgb(255, 99, 132)",
 			label: name,
 			borderWidth: 1,
-			data: [{ x: time, y: newData }],
+			data: [{ x: time, y: value }],
 		}
 		chart.data.datasets.push(newDataset);
 	}
@@ -84,7 +84,7 @@ setInterval(() => {
 		.then(data => {
 			// Handle data
 			console.log("Data received int: " + JSON.stringify(data));
-			addData(main_chart, data["name"], data["time"], data["data"]);
+			addData(main_chart, data["name"], data["time"], data["value"]);
 		})
 		.catch(error => {
 			// Handle error

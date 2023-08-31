@@ -4,6 +4,9 @@
 const { app, BrowserWindow } = require('electron')
 const path = require('path')
 const { Queue } = require('./queue.js')
+const express = require('express');
+const bodyParser = require('body-parser')
+const fs = require('fs');
 
 const createWindow = () => {
 	// Create the browser window.
@@ -46,22 +49,22 @@ app.on('window-all-closed', () => {
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and require them here.
 
-const express = require('express');
-const bodyParser = require('body-parser')
-
 const xp = express();
-const port = 3000;
-
 xp.use(bodyParser.json())
 xp.use(bodyParser.urlencoded({ extended: false }))
-
+const port = 3000;
 const queue = new Queue();
+
+xp.listen(port, () => {
+	console.log(`Listening on port ${port}\n`);
+})
 
 xp.post('/data_ingest', (req, res) => {
 	let data = req.body;
 	console.log("Data received ext: " + JSON.stringify(data));
-	res.sendStatus(200);
 	queue.enqueue(data);
+	writeCSVFile(data["name"], data["time"], data["value"]);
+	res.sendStatus(200);
 })
 
 xp.get('/data_collect', (req, res) => {
@@ -78,27 +81,20 @@ xp.get('/data_collect', (req, res) => {
 // 	res.send('Hello World!');
 // })
 
+function writeCSVFile(name, time, value) {
 
+	// Create a data directory if it does not already exist
+	var dir = './data';
+	if (!fs.existsSync(dir)) {
+		fs.mkdirSync(dir);
+	}
 
-xp.listen(port, () => {
-	console.log(`Listening on port ${port}\n`);
-})
-
-// const fs = require('fs');
-
-// // Create a data directory if it does not already exist
-
-// var dir = './data';
-
-// if (!fs.existsSync(dir)) {
-// 	fs.mkdirSync(dir);
-// }
-
-// const content = 'Some,content!';
-
-// fs.writeFile('data/test.csv', content, err => {
-// 	if (err) {
-// 		console.error(err);
-// 	}
-// 	// file written successfully
-// });
+	const content = String(time) + "," + String(value) + "\n";
+	fs.writeFile("data/" + name + ".csv", content, { encoding: "utf8", flag: "a" }
+		, err => {
+			if (err) {
+				console.error(err);
+			}
+			// file written successfully
+		});
+}

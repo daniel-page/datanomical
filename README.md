@@ -31,7 +31,7 @@ http://localhost:3000/data_ingest
 {
 	"name": "stream1",
 	"time": 1693437360633,
-	"data": 3
+	"value": 3
 }  
 ``` 
 Note this uses unix time.  
