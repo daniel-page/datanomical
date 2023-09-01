@@ -1,4 +1,6 @@
-# Datanomical  
+<img align="left" width="80" height="80" src="icon-64x64.png" alt="Datanomical">
+
+# Datanomical
 A datalogging application that collects and visualises data sent via REST API or WebSocket API.  
 
 Development is currently in progress.  
