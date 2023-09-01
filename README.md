@@ -20,7 +20,7 @@ yarn start
 
 ### Build application
 ``` 
-yarn build  
+yarn make  
 ``` 
 
 ### POST
